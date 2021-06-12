@@ -7,13 +7,17 @@
 		<style>
 			.box{width:200px; height:200px; background:green; border:2px solid black; text-align:center; line-height:200px; color:white;}
 			.hidden{display:none;}
+			.redBox{width:100px; height:100px; background: red;}
+			.active{height: 210px;}
 		</style>
 	</head>
 	<body>
 	
 	<div id="app">
 		<div v-bind:class="{box:true, hidden:boxHidden}">{{message}}</div>
-		<button v-on:click="showhide();">Click</button>
+		<button v-on:click="showhide();">{{button}}</button>
+
+		<div v-bind:class="{redBox:true, active:hover}" v-on:mouseover="hover = true" v-on:mouseleave="hover = false">100px taller when you hover</div>
 	</div>
 	
 	<script>
@@ -23,15 +27,20 @@
 		data:{
 			boxHeight:200,
 			boxHidden : false,
-			message  : 'Make me disappear!'
+			message  : 'Make me disappear!',
+			button : 'Hide',
+			hover : false,
+			active : 'active'
 		},
 		methods:{
 			showhide : function(){
 				console.log(this.boxHidden);
 				if(this.boxHidden){
 					this.boxHidden=false;
+					this.button = 'Hide';
 				}else{
-					this.boxHidden=true;	
+					this.boxHidden=true;
+					this.button = 'Show';	
 				}
 			}
 		}
