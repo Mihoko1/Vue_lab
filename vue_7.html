@@ -8,9 +8,59 @@
 			.formfield{margin-bottom:10px;}
 		</style>
 	</head>
+
 	<body>
-	<p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
-	<div id="app">
+		<p>Special Day <a href="https://cemc.math.uwaterloo.ca/contests/computing/2015/stage%201/juniorEn.pdf">from the J1 problem hosted by the CCC.</a></p>
+		<div id="app">
+			<div class="formfield">
+				<label>Month: <label> <input v-model="month_val" placeholder="Input 1 - 12">
+			</div>
+			<div class="formfield">
+				<label>Day: <label> <input v-model="day_val" placeholder="Input 1 - 31">
+			</div>
+			
+			<div id="result">
+				<div >{{diagnostics}}</div>
+			</div>
+		</div>
+
+		<script>
+			var app = new Vue({
+				el: '#app',
+				data:{
+					
+					ccc_month: 2,
+					ccc_day: 18,
+					month_val: '',
+					day_val: ''
+
+				},
+				computed:{
+					diagnostics:function(){
+
+						if(this.month_val == '' || this.day_val == ''){
+							return "";
+
+						}else if(this.month_val == 0 || this.month_val > 12 || this.day_val == 0 || this.day_val > 31 || isNaN(this.month_val) ||isNaN(this.day_val)){
+							return "error";
+						}else if(this.ccc_month == this.month_val && this.ccc_day == this.day_val){
+							return "Special";
+
+						}else if(this.ccc_month < this.month_val || (this.ccc_month == this.month_val && this.ccc_day < this.day_val)){
+							return "After";
+
+						}else{
+							return "Before";
+						}
+						
+					}
+				}
+			});
+			
+			</script> 
+	
+	
+	<!-- <div id="app">
 		<div class="formfield">
 			<label>Small Treats: <label> <input v-model="treat_qty_small">
 		</div>
@@ -56,7 +106,7 @@
 		}
 	});
 	
-	</script>
+	</script> -->
 	<!--
 		v-model will allow you to quickly bind form elements to the data property.
 		Make sure to set a default value!
